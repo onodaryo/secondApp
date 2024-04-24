@@ -11,39 +11,42 @@ class QuizHome extends StatefulWidget{
 
 class _QuizHome extends State<QuizHome> {
   void changeSceneH2Q(){
-    // ...
+    print('hoge');
   }
   @override
   build(context){
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Image.asset(
-          'assets/images/quiz-logo.png',
-          width: 280,
+        Opacity(
+          opacity: 0.6,
+          child: Image.asset(
+            'assets/images/quiz-logo.png',
+            width: 300,
+          ),
         ),
         const SizedBox(
-          height: 40,
+          height: 80,
         ),
         const Text(
           'Learn Flutter the fun way!',
           style: TextStyle(
-            fontSize: 28,
+            fontSize: 24,
             color: Colors.white,
 
           ),
         ),
         const SizedBox(
-          height: 24,
+          height: 30,
         ),
-        OutlinedButton(
-            onPressed: changeSceneH2Q,
-            child: const Text(
+        OutlinedButton.icon(
+          onPressed: changeSceneH2Q,
+          style: OutlinedButton.styleFrom(
+            foregroundColor: Colors.white,
+          ),
+          icon: const Icon(Icons.arrow_right_alt),
+          label: const Text(
               'Start Quiz',
-              style: TextStyle(
-                fontSize: 20,
-                color: Colors.white,
-              ),
             ),
         ),
       ],
