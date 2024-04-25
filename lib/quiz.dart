@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:quiz/startScreen.dart';
+import 'package:quiz/questionsScreen.dart';
+import 'package:quiz/quizHome.dart';
 
 class Quiz extends StatefulWidget {
   const Quiz({super.key});
@@ -10,6 +12,20 @@ class Quiz extends StatefulWidget {
 }
 
 class _QuizState extends State<Quiz> {
+  Widget? activeScreen;
+
+  @override
+  void initState(){
+    activeScreen = QuizHome(switchScreen);
+    super.initState();
+  }
+
+  void switchScreen() {
+    setState(() {
+      activeScreen = const QuestionsScreen();
+    });
+  }
+
   @override
   Widget build(context) {
     return MaterialApp(
@@ -17,14 +33,14 @@ class _QuizState extends State<Quiz> {
         body: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(colors: [
-              Colors.deepPurple,
+              Colors.deepOrange,
               Colors.indigo,
             ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             )
           ),
-          child: StartScreen(),
+          child: activeScreen,
         ),
       ),
     );
