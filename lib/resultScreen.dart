@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'package:quiz/data/questions.dart';
 import 'package:quiz/questionSummary.dart';
 
 class ResultScreen extends StatelessWidget{
-  const ResultScreen({super.key, required this.chosenAnswers, required this.onReturnTitle});
+  const ResultScreen({super.key, required this.chosenAnswers, required this.onRestart, required this.onReturnTitle});
 
   final List<String> chosenAnswers;
   final void Function() onReturnTitle;
+  final void Function() onRestart;
 
   List<Map<String, Object>> getSummaryData() {
     final List<Map<String, Object>> summary = [];
@@ -24,6 +26,12 @@ class ResultScreen extends StatelessWidget{
 
   @override
   Widget build(context){
+    final summaryData = getSummaryData();
+    final num_TotalQuestions = questions.length;
+    final num_CorrectQuestions = summaryData.where((data) {
+      return data['user_answer'] == data['correct_answer'];
+    }).length;
+
     return SizedBox(
       width: double.infinity,
       child: Container(
@@ -31,12 +39,42 @@ class ResultScreen extends StatelessWidget{
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text('You answered X out of Y question correctly!'),
+            Text(
+              'You answered $num_CorrectQuestions out of $num_TotalQuestions question correctly!',
+              style: GoogleFonts.lato(
+                color: Colors.white,
+                fontSize: 20,
+                ),
+              textAlign: TextAlign.center,
+            ),
             const SizedBox(height: 30,),
-            QuestionsSummary(summaryData: getSummaryData()),
+            QuestionsSummary(summaryData: summaryData),
             const SizedBox(height: 30,),
-            TextButton(onPressed: () {}, child: const Text('Restart Quiz!')),
-            TextButton(onPressed: onReturnTitle, child: const Text('Return to Title.'))
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextButton.icon(
+                  onPressed: onRestart,
+                  style: TextButton.styleFrom(
+                    foregroundColor:Colors.white,
+                  ),
+                  icon: const Icon(
+                    Icons.restart_alt,
+                    textDirection: TextDirection.rtl,
+                  ),
+                  label: const Text('Restart Quiz!'),
+                ),
+                const SizedBox(width: 20,),
+                TextButton.icon(
+                  style: TextButton.styleFrom(
+                    foregroundColor: Colors.white,
+                  ),
+                  icon: const Icon(Icons.cancel),
+                  onPressed: onReturnTitle,
+                  label: const Text('Return to Title.'),
+                )
+              ]
+            ),
           ],
         ),
       ),
