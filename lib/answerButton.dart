@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 class AnswerButton extends StatelessWidget {
   const AnswerButton({
     super.key,
-    required this.button_text,
+    required this.buttonText,
     required this.onTap,
   });
 
-  final String button_text;
+  final String buttonText;
   final void Function() onTap;
 
   @override
@@ -20,7 +20,7 @@ class AnswerButton extends StatelessWidget {
         foregroundColor: Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
       ),
-      child: Text(button_text),
+      child: Text(buttonText),
     );
   }
 }
