@@ -27,8 +27,8 @@ class ResultScreen extends StatelessWidget{
   @override
   Widget build(context){
     final summaryData = getSummaryData();
-    final num_TotalQuestions = questions.length;
-    final num_CorrectQuestions = summaryData.where((data) {
+    final numTotalQuestions = questions.length;
+    final numCorrectQuestions = summaryData.where((data) {
       return data['user_answer'] == data['correct_answer'];
     }).length;
 
@@ -40,7 +40,7 @@ class ResultScreen extends StatelessWidget{
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'You answered $num_CorrectQuestions out of $num_TotalQuestions question correctly!',
+              'You answered $numCorrectQuestions out of $numTotalQuestions question correctly!',
               style: GoogleFonts.lato(
                 color: Colors.white,
                 fontSize: 20,
@@ -59,8 +59,7 @@ class ResultScreen extends StatelessWidget{
                     foregroundColor:Colors.white,
                   ),
                   icon: const Icon(
-                    Icons.restart_alt,
-                    textDirection: TextDirection.rtl,
+                    Icons.refresh,
                   ),
                   label: const Text('Restart Quiz!'),
                 ),
